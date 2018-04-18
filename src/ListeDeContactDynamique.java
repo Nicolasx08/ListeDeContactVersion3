@@ -1,5 +1,4 @@
 import Attributs.*;
-
 import java.io.*;
 import java.util.*;
 
@@ -8,13 +7,9 @@ public class ListeDeContactDynamique implements Serializable {
     static HashMap<String, Contact> map = new HashMap<>();
     static Queue<Contact> listeRappel=new LinkedList<>();
  public static void main(String[] args) {
-     boolean ok = false;
      int decision = 0;
      boolean quitter = false;
-     List<Telephone> listeTel = new ArrayList<>();
      String choix = "l";
-     char autreNuméro = 'k';
-     boolean autreNum = true;
      boolean listePasFini = false;
      Scanner sc = new Scanner(System.in);
 
@@ -90,6 +85,7 @@ public class ListeDeContactDynamique implements Serializable {
                  case 8:
                      System.out.println("Bye!Bye!");
                      Sauvegarde();
+                     quitter=true;
                      System.exit(0);
                      break;
              }
@@ -113,7 +109,7 @@ public class ListeDeContactDynamique implements Serializable {
             listeRappel= (Queue<Contact>)entree.readObject();
             entree.close();
         }catch (Exception IO2){
-            System.out.println("CELA N'A PAS CHARGÉ!");
+            System.out.println("Fichier inexistant.");
         }
 
     }

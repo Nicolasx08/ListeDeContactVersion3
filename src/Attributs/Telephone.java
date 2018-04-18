@@ -74,7 +74,7 @@ public class Telephone implements Serializable{
             nbeChiffre=sc.nextLine();
             ok1=true;
             if (nbeChiffre.length() != 12) {
-                System.out.println("Vous n'avez pas entré un bon num de tel.");
+                System.out.println("Vous n'avez pas entré un bon num de tel, 12 caractères.");
                 ok1=false;
             }
             else if (nbeChiffre.charAt(3) != '-' && nbeChiffre.charAt(7) != '-') {

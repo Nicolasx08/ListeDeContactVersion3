@@ -1,5 +1,4 @@
 package Attributs;
-
 import java.io.Serializable;
 import java.util.Scanner;
 
@@ -37,15 +36,14 @@ public class Adresse implements Serializable{
         Scanner sc= new Scanner(System.in);
         System.out.println("Création de l'adresse.");
         System.out.println("Numéro de porte?");
-        adresse.setNumeroPorte(sc.next());
+        adresse.setNumeroPorte(chiffre());
         System.out.println("Rue?");
         adresse.setRue(sc.next());
         System.out.println("Appartement(falcutatif)?");
-        adresse.setAppartement(sc.next());
-        System.out.println("Pays?");
+        adresse.setAppartement(chiffre());
         adresse.setPays(choixPays());
         if (adresse.getPays().equals("Canada")){
-            adresse.setProvince();
+            adresse.setProvince(choixProvince());
         }
 
         System.out.println("Ville?");
@@ -57,51 +55,46 @@ public class Adresse implements Serializable{
         Scanner sc= new Scanner(System.in);
         System.out.println("Modification de l'adresse.");
         System.out.println("Numéro de porte: "+numeroPorte);
-        input=sc.nextLine().trim();
-        if (!input.equals("")){
-            setNumeroPorte(input);
-        }
+        setNumeroPorte(chiffre());
         System.out.println("Rue: "+rue);
         input=sc.nextLine().trim();
         if (!input.equals("")){
             setRue(input);
         }
         System.out.println("Appartement(facultatif): "+appartement);
-        input=sc.nextLine().trim();
-        if (!input.equals("")){
-            setAppartement(input);
+       setAppartement(chiffre());
+        System.out.println("Pays: "+pays);
+        setPays(choixPays());
+        if (pays.equals("Canada")){
+            System.out.println("Province: "+province);
+            setProvince(choixProvince());
         }
         System.out.println("Ville: "+ville);
         input=sc.nextLine().trim();
         if (!input.equals("")){
             setVille(input);
         }
-        System.out.println("Province: "+province);
-        input=sc.nextLine().trim();
-        if (!input.equals("")){
-            setProvince(input);
-        }
-        System.out.println("Pays: "+pays);
-        input=sc.nextLine().trim();
-        if (!input.equals("")){
-            setPays(input);
-        }
+
+
     }
     public void afficherAdresse(){
         System.out.println("Numéro de porte: "+numeroPorte);
         System.out.println("Rue: "+rue);
         System.out.println("Appartement: "+appartement);
-        System.out.println("Ville: "+ville);
-        System.out.println("Province: "+province);
         System.out.println("Pays: "+pays);
+        if (pays.equals("Canada")){
+            System.out.println("Province: "+province);
+        }
+        System.out.println("Ville: "+ville);
     }
    public static String choixPays(){
         int pays=0;
         boolean ok3=false;
         while (!ok3){
             ok3=true;
-            for (int i=0;i<7;i++){
-                System.out.println(i +"-"+tableauPays[i]);
+            System.out.println("Pays?");
+            for (int i=0;i<tableauPays.length;i++){
+                System.out.println(i +"- "+tableauPays[i]);
             }
             Scanner sc = new Scanner(System.in);
 
@@ -112,11 +105,54 @@ public class Adresse implements Serializable{
                 System.out.println("Veuillez entrer un nombre de 0 à 6.");
                 ok3=false;
             }
+            if (pays<0 || pays>tableauPays.length){
+                System.out.println("Entrez un nombre entre 0 et 6");
+                ok3=false;
+            }
         }
         return tableauPays[pays];
     }
     public static String choixProvince(){
+        int province=0;
+        boolean ok4=false;
+        while (!ok4){
+            ok4=true;
+            System.out.println("Province?");
+            for (int i=0;i<tableauProvince.length;i++){
+                System.out.println(i+"- "+tableauProvince[i]);
+            }
+            Scanner sc = new Scanner(System.in);
 
+            try{
+                province=sc.nextInt();
+            }catch (Exception nombre1){
+                System.out.println("Entrez une province dans la liste svp!");
+                ok4=false;
+            }
+            if (province<0 || province>tableauProvince.length){
+                System.out.println("Entrez un nombre entre 0 et 6");
+                ok4=false;
+            }
+        }
+        return tableauProvince[province];
+    }
+    public static String chiffre(){
+        Scanner sc =new Scanner(System.in);
+        boolean ok5=false;
+        String choix1="0";
+        int test=0;
+        while (!ok5){
+            ok5=true;
+                choix1=sc.nextLine();
+                for (int i=0;i<choix1.length();i++) {
+                    test = (int) choix1.charAt(i);
+                    if (57 < test || 48 > test) {
+                        System.out.println("Vous devez mettre un chiffre à la position " + i);
+                        ok5 = false;
+                    }
+                }
+        }
+        return choix1;
     }
 }
 
